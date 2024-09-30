@@ -49,3 +49,4 @@ export default tseslint.config({
 })
 ```
 "# sec-app" 
+"# email-app" 
