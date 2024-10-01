@@ -20,7 +20,7 @@ const Container = () => {
     const userName = userEmail.split("@")[0];
     const publicKey = "fZab5skM3kS9JSPtg";
     emailjs
-      .sendForm("service_4dcwyzd", "template_u12wotc", userName, publicKey)
+      .sendForm("service_4dcwyzd", "template_u12wotc", userEmail, publicKey)
       .then((res) => {
         console.log(res);
         alert("Your newsletter subscription was successful");
