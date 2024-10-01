@@ -1,10 +1,9 @@
 import { FaCircleCheck } from "react-icons/fa6";
-import { useState } from "react";
 import { z, ZodType } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import emailjs from "emailjs-com";
 
-const MailValue: string = "";
 type mailValue = {
   mail: string;
 };
@@ -14,21 +13,26 @@ const schema: ZodType<mailValue> = z.object({
 });
 
 const Container = () => {
-  const [mail, setMail] = useState(MailValue);
-
-  const updateMail = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setMail(event.target.value);
-  };
-
   const submitData = (data: mailValue) => {
-    setMail("");
     console.log(data, "name:Adesanya Adebayo");
+    reset();
+    const userEmail = data.mail;
+    const userName = userEmail.split("@")[0];
+    const publicKey = "fZab5skM3kS9JSPtg";
+    emailjs
+      .sendForm("service_4dcwyzd", "template_u12wotc", userName, publicKey)
+      .then((res) => {
+        console.log(res);
+        alert("Your newsletter subscription was successful");
+      })
+      .catch((err) => console.log(err));
   };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<mailValue>({
     resolver: zodResolver(schema),
   });
@@ -62,7 +66,6 @@ const Container = () => {
             <input
               type="email"
               className="input"
-              value={mail}
               placeholder="email@company.com"
               {...register("mail")}
             />
