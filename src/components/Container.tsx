@@ -16,11 +16,9 @@ const Container = () => {
   const submitData = (data: mailValue) => {
     console.log(data, "name:Adesanya Adebayo");
     reset();
-    const userEmail = data.mail;
-    const userName = userEmail.split("@")[0];
     const publicKey = "fZab5skM3kS9JSPtg";
     emailjs
-      .sendForm("service_4dcwyzd", "template_u12wotc", userEmail, publicKey)
+      .sendForm("service_4dcwyzd", "template_u12wotc", data.mail, publicKey)
       .then((res) => {
         console.log(res);
         alert("Your newsletter subscription was successful");
